@@ -2,7 +2,7 @@
 
 A training workflow for drafting outreach emails to oncology researchers. It adapts the instruction-tuned [Gemma 2 2B model](https://huggingface.co/google/gemma-2-2b-it) with a small private prompt/response dataset. The base model is loaded in 4-bit NF4; LoRA adapters target its attention projections.
 
-**Status:** The linked [original Colab notebook](https://colab.research.google.com/drive/1YQM4pBs90pFDkmemgYZV7N_tim6P58Tm) contains 67 loaded examples and a failed training cell. Its saved adapter and generated email do **not** demonstrate successful fine-tuning. This repository provides a corrected training path, but no completed training run or quality improvement is claimed yet. See [the notebook audit](docs/notebook-audit.md).
+**Status:** The linked [original Colab notebook](https://colab.research.google.com/drive/1YQM4pBs90pFDkmemgYZV7N_tim6P58Tm) contains 67 loaded examples and a failed training cell. Its saved adapter and generated email do **not** demonstrate successful fine-tuning. The corrected training path completed a T4 GPU smoke test with five synthetic examples, wrote an adapter, and recorded train/evaluation loss. Training on the 67 private examples and email quality remain unverified because Colab could not mount Drive. See [the notebook audit](docs/notebook-audit.md).
 
 ## Run in Colab
 

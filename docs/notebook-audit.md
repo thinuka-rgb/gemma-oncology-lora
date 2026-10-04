@@ -12,4 +12,8 @@ Source: [Copy of Working_Gemma_4.0.ipynb](https://colab.research.google.com/driv
 | Prompts and completions were hand-wrapped with Gemma role markers. The inference prompt was also hand-written. | Easy to duplicate tokens or mismatch the model's chat template. | Use conversational records and `tokenizer.apply_chat_template` for inference. |
 | No held-out evaluation, baseline comparison or factuality check was shown. | No quality or medical accuracy claim can be made. | Record a small held-out loss; require human review of generated text. |
 
-Implementation choices follow the [PEFT quantization guide](https://huggingface.co/docs/peft/developer_guides/quantization), [TRL SFTTrainer docs](https://huggingface.co/docs/trl/sft_trainer), and [Gemma 2 model card](https://huggingface.co/google/gemma-2-2b-it). A successful GPU run with the private data is still required before claiming that this specific experiment trains end to end.
+Implementation choices follow the [PEFT quantization guide](https://huggingface.co/docs/peft/developer_guides/quantization), [TRL SFTTrainer docs](https://huggingface.co/docs/trl/sft_trainer), and [Gemma 2 model card](https://huggingface.co/google/gemma-2-2b-it).
+
+## GPU smoke test (2026-10-04)
+
+The published `train.py` ran on a Colab T4 with five synthetic prompt/response examples (four train, one evaluation). It completed with exit code 0 and saved `adapter_config.json` and `adapter_model.safetensors`. Metrics reported 3,194,880 trainable parameters, training loss 6.2043, and evaluation loss 4.6731. These values only establish that the code trains and saves a LoRA adapter; the tiny artificial split says nothing about output quality. Colab's Google Drive mount failed with `ValueError: mount failed`, so the 67 private examples were not used in this test. The separate generation script was not GPU-tested in that session.
