@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Private training material and generated checkpoints
+data/private/
+outputs/
+*.safetensors
+*.zip
