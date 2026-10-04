@@ -86,6 +86,8 @@ def main():
     trainable = sum(p.numel() for p in trainer.model.parameters() if p.requires_grad)
     if trainable <= 0:
         raise RuntimeError("The LoRA adapter has no trainable parameters")
+    if len(trainer.train_dataset) == 0 or len(trainer.eval_dataset) == 0:
+        raise RuntimeError("Tokenization left no usable training or evaluation examples")
     print(f"Trainable adapter parameters: {trainable:,}")
 
     result = trainer.train()
@@ -96,8 +98,8 @@ def main():
     metrics = {
         "model": MODEL_ID,
         "examples": len(examples),
-        "train_examples": len(split["train"]),
-        "eval_examples": len(split["test"]),
+        "train_examples": len(trainer.train_dataset),
+        "eval_examples": len(trainer.eval_dataset),
         "train_loss": result.training_loss,
         "eval_loss": evaluation.get("eval_loss"),
         "trainable_parameters": trainable,
